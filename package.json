@@ -1,5 +1,5 @@
 {
-    "name": "@leovigna/sol-datastructs",
+    "name": "sol-datastructs",
     "version": "0.0.4-alpha.0",
     "description": "Simple data structures for Ethereum smart contracts.",
     "author": "Leo Vigna",
