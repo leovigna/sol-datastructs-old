@@ -1,0 +1,37 @@
+{
+    "name": "@leovigna/sol-datastructs",
+    "version": "0.0.4-alpha.0",
+    "description": "Simple data structures for Ethereum smart contracts.",
+    "author": "Leo Vigna",
+    "license": "MIT",
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/leovigna/sol-datastructs.git"
+    },
+    "bugs": {
+        "url": "https://github.com/leovigna/sol-datastructs/issues"
+    },
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "keywords": [
+        "datastructure",
+        "dictionary",
+        "set",
+        "mapping",
+        "SQL",
+        "ethereum",
+        "solidity",
+        "orm",
+        "nodejs",
+        "object relational mapper"
+    ],
+    "files": [
+        "src/**/*"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "6124e4cd5f22c9be0cc539f5c19640f0ee7915ed"
+}
