@@ -1,6 +1,6 @@
 {
     "name": "sol-datastructs",
-    "version": "0.0.0",
+    "version": "0.0.1-alpha.0",
     "description": "Simple data structures for Ethereum smart contracts.",
     "author": "Leo Vigna",
     "license": "MIT",
@@ -33,5 +33,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "6124e4cd5f22c9be0cc539f5c19640f0ee7915ed"
+    "gitHead": "5fe7c8e8e6ee7bb5a28eba7eece9383a6987cdf1"
 }
