@@ -1,4 +1,5 @@
 pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
 
 /**
  * @dev Example Contract using event logs as cheaper storage
@@ -24,15 +25,15 @@ contract LogStorage {
 
     event FooLog(Foo foo);
 
-    mapping(bytes32 => Foo) normalStorage;
-    mapping(bytes32 => bool) logStorage;
+    mapping(uint256 => Foo) public normalStorage;
+    mapping(bytes32 => bool) public logStorage;
 
     function normalStorageCreate(
         uint256 id,
         uint256 valueA,
-        uint256 valueB
-    ) {
-        Foo storage foo;
+        bytes32 valueB
+    ) public {
+        Foo memory foo;
         foo.id = id;
         foo.from = msg.sender;
         foo.valueA = valueA;
@@ -45,37 +46,53 @@ contract LogStorage {
     function logStorageCreate(
         uint256 id,
         uint256 valueA,
-        uint256 valueB
-    ) {
+        bytes32 valueB
+    ) public {
         Foo memory foo;
         foo.id = id;
         foo.from = msg.sender;
         foo.valueA = valueA;
         foo.valueB = valueB;
 
-        bytes32 fooHash = keccak256(id, msg.sender, valueA, valueB);
+        bytes32 fooHash = keccak256(abi.encode(id, msg.sender, valueA, valueB));
 
-        require(normalStorage[fooHash] == false, "Foo exists!")
-        normalStorage[fooHash] = true;
+        require(logStorage[fooHash] == false, "Foo exists!");
+        logStorage[fooHash] = true;
 
         emit FooLog(foo);
+    }
+
+    function logStorageExists(
+        uint256 id,
+        address from,
+        uint256 valueA,
+        bytes32 valueB
+    ) public view returns (bool) {
+        Foo memory foo;
+        foo.id = id;
+        foo.from = from;
+        foo.valueA = valueA;
+        foo.valueB = valueB;
+
+        bytes32 fooHash = keccak256(abi.encode(id, msg.sender, valueA, valueB));
+
+        return logStorage[fooHash];
     }
 
     function logStorageDelete(
         uint256 id,
         uint256 valueA,
-        uint256 valueB
-    ) {
+        bytes32 valueB
+    ) public {
         Foo memory foo;
         foo.id = id;
         foo.from = msg.sender;
         foo.valueA = valueA;
         foo.valueB = valueB;
 
-        bytes32 fooHash = keccak256(id, msg.sender, valueA, valueB);
+        bytes32 fooHash = keccak256(abi.encode(id, msg.sender, valueA, valueB));
 
-        require(normalStorage[fooHash] == true, "Foo doesn't exists!")
-        normalStorage[fooHash] = false;
+        require(logStorage[fooHash] == true, "Foo doesn't exists!");
+        logStorage[fooHash] = false;
     }
-
 }
